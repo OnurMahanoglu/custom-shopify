@@ -1,7 +1,0 @@
-query RunInput {
-  paymentCustomization {
-    metafield(namespace: "$app:payment-customization", key: "function-configuration") {
-      value
-    }
-  }
-}
