@@ -6,16 +6,16 @@ import {
   useSubscription,
   useExtensionCapability,
   useBuyerJourney,
-} from '@shopify/ui-extensions-react/checkout';
-import { useState } from 'react';
+} from "@shopify/ui-extensions-react/checkout";
+import { useState } from "react";
 
 export default reactExtension(
-  'purchase.checkout.block.render',
-  () => <Extension />,
+  "purchase.checkout.delivery-address.render-before",
+  () => <Extension />
 );
 
 function Extension() {
-  const {shippingAddress} = useApi();
+  const { shippingAddress } = useApi();
   const customerData = useSubscription(shippingAddress);
   const canBlockProgress = useExtensionCapability("block_progress");
   const [validationError, setValidationError] = useState("");
@@ -26,39 +26,43 @@ function Extension() {
   let infoText;
   let title;
 
-  let desiredPhoneLength = 15;
+  let desiredPhoneLength =15;
 
-  function isPhoneCorrect(){
+  function isPhoneCorrect() {
     if (customerData.phone === null || customerData.phone === "") {
       areaStatus = "critical";
       infoText = "The phone field must be 10 characters long.";
       title = "Warning";
       return false;
-    }else{
+    } else {
       if (customerData.phone.length > desiredPhoneLength) {
         areaStatus = "critical";
         infoText = "The phone field must be 10 characters long.";
         title = "Warning";
         return false;
-      }else{
+      } else {
         return true;
       }
     }
   }
-  function isZipCodeCorrect(){
-    if (customerData.zip === null || customerData.zip === "") {
+  function isZipCodeCorrect() {
+    if (customerData.zip === null || customerData.zip === "" || customerData.zip === undefined) {
       areaStatus = "critical";
       infoText = "Postal Code field cannot be empty.";
       title = "Warning";
       return false;
-    }else{
-      return true
+    } else {
+      return true;
     }
   }
-  if(isPhoneCorrect() && isZipCodeCorrect() && customerData.phone.length < desiredPhoneLength){
-    areaStatus="success";
-    infoText="You can successfully continue to the next step";
-    title="Success";
+  if (
+    isPhoneCorrect() &&
+    isZipCodeCorrect() &&
+    customerData.phone.length < desiredPhoneLength
+  ) {
+    areaStatus = "success";
+    infoText = `Test ${customerData.phone} ${customerData.zip}`;
+    title = "Success";
   }
 
   useBuyerJourney(({ canBlockProgress }) => {
@@ -69,8 +73,7 @@ function Extension() {
         errors: [
           {
             // Show a validation error on the page
-            message:
-              "Postal Code Cannot Be Empty",
+            message: "Postal Code Cannot Be Empty",
           },
         ],
       };
@@ -82,8 +85,7 @@ function Extension() {
         errors: [
           {
             // Show a validation error on the page
-            message:
-              "Phone Length Cannot Be Greater Than 10 or Empty",
+            message: "Phone Length Cannot Be Greater Than 10 or Empty",
           },
         ],
       };
@@ -99,13 +101,13 @@ function Extension() {
   function clearValidationErrors() {
     setValidationError("");
   }
-  if(areaStatus != null && infoText != null && title!= null){
+  if (areaStatus != null && infoText != null && title != null) {
     return (
       <Banner title={title} status={areaStatus}>
         {infoText}
       </Banner>
     );
-  }else{
+  } else {
     return null;
   }
 }
