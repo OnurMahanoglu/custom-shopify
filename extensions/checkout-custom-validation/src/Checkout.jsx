@@ -9,10 +9,9 @@ import {
 } from "@shopify/ui-extensions-react/checkout";
 import { useState } from "react";
 
-export default reactExtension(
-  "purchase.checkout.delivery-address.render-before",
-  () => <Extension />
-);
+export default reactExtension("purchase.checkout.block.render", () => (
+  <Extension />
+));
 
 function Extension() {
   const { shippingAddress } = useApi();
@@ -25,9 +24,6 @@ function Extension() {
   let areaStatus;
   let infoText;
   let title;
-
-  let desiredPhoneLength =15;
-
   function isPhoneCorrect() {
     if (customerData.phone === null || customerData.phone === "") {
       areaStatus = "critical";
@@ -35,9 +31,14 @@ function Extension() {
       title = "Warning";
       return false;
     } else {
-      if (customerData.phone.length > desiredPhoneLength) {
+      if (customerData.phone.charAt(0) != "+") {
         areaStatus = "critical";
-        infoText = "The phone field must be 10 characters long.";
+        infoText = "Phone number must start with '+'";
+        title = "Warning";
+        return false;
+      } else if (customerData.phone.charAt(1) != "4") {
+        areaStatus = "critical";
+        infoText = "After '+' phone number must continue with 4";
         title = "Warning";
         return false;
       } else {
@@ -45,39 +46,13 @@ function Extension() {
       }
     }
   }
-  function isZipCodeCorrect() {
-    if (customerData.zip === null || customerData.zip === "" || customerData.zip === undefined) {
-      areaStatus = "critical";
-      infoText = "Postal Code field cannot be empty.";
-      title = "Warning";
-      return false;
-    } else {
-      return true;
-    }
-  }
-  if (
-    isPhoneCorrect() &&
-    isZipCodeCorrect() &&
-    customerData.phone.length < desiredPhoneLength
-  ) {
+  if (isPhoneCorrect()) {
     areaStatus = "success";
-    infoText = `Test ${customerData.phone} ${customerData.zip}`;
+    infoText = `You can successfully continue`;
     title = "Success";
   }
 
   useBuyerJourney(({ canBlockProgress }) => {
-    if (canBlockProgress && !isZipCodeCorrect()) {
-      return {
-        behavior: "block",
-        reason: `Area Not Filled.`,
-        errors: [
-          {
-            // Show a validation error on the page
-            message: "Postal Code Cannot Be Empty",
-          },
-        ],
-      };
-    }
     if (canBlockProgress && !isPhoneCorrect()) {
       return {
         behavior: "block",
