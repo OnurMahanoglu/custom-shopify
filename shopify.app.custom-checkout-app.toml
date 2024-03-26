@@ -2,7 +2,7 @@
 
 client_id = "e1c7b9a1aa48120131adaffab96fd120"
 name = "Custom Checkout App"
-application_url = "https://wrong-acrobat-dragon-jordan.trycloudflare.com"
+application_url = "https://jm-between-sentence-rouge.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "read_customers,read_shipping,write_payment_customizations,write_produc
 
 [auth]
 redirect_urls = [
-  "https://wrong-acrobat-dragon-jordan.trycloudflare.com/auth/callback",
-  "https://wrong-acrobat-dragon-jordan.trycloudflare.com/auth/shopify/callback",
-  "https://wrong-acrobat-dragon-jordan.trycloudflare.com/api/auth/callback"
+  "https://jm-between-sentence-rouge.trycloudflare.com/auth/callback",
+  "https://jm-between-sentence-rouge.trycloudflare.com/auth/shopify/callback",
+  "https://jm-between-sentence-rouge.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
