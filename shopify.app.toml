@@ -2,7 +2,7 @@
 
 client_id = "c76e8282d4c1b257617de0fd1dfcc9bc"
 name = "payment-customization"
-application_url = "https://paying-den-assessing-roulette.trycloudflare.com"
+application_url = "https://custom-karaca-shopify-app.vercel.app"
 embedded = true
 
 [build]
