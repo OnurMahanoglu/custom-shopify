@@ -84,14 +84,17 @@ export default function Index() {
 
   return (
     <Page>
-      <ui-title-bar title="Remix app template">
-        <button variant="primary" onClick={generateProduct}>
+      <ui-title-bar title="Karaca Custom Checkout Validation">
+        {/* <button variant="primary" onClick={generateProduct}>
           Generate a product
-        </button>
+        </button> */}
       </ui-title-bar>
       <BlockStack gap="500">
         <Layout>
           <Layout.Section>
+            Bu App Sadece Checkout İşlemlerinin Validasyonu için yapılmıştır. Herhangi bir ayarı yoktur.
+          </Layout.Section>
+          {/* <Layout.Section>
             <Card>
               <BlockStack gap="500">
                 <BlockStack gap="200">
@@ -272,7 +275,7 @@ export default function Index() {
                 </BlockStack>
               </Card>
             </BlockStack>
-          </Layout.Section>
+          </Layout.Section> */}
         </Layout>
       </BlockStack>
     </Page>
