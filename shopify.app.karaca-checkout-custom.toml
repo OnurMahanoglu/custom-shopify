@@ -1,0 +1,28 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "28231e0410aadd9e8c26cb8e0bbcbb6d"
+name = "karaca-checkout-custom"
+application_url = "https://process-twelve-appearance-clouds.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "quickstart-7bc36915.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = ""
+
+[auth]
+redirect_urls = [
+  "https://process-twelve-appearance-clouds.trycloudflare.com/auth/callback",
+  "https://process-twelve-appearance-clouds.trycloudflare.com/auth/shopify/callback",
+  "https://process-twelve-appearance-clouds.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-01"
+
+[pos]
+embedded = false
